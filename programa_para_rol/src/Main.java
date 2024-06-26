@@ -1,4 +1,5 @@
 import Herramientas.CrearNPC;
+import Herramientas.CrearObjetosPj;
 import Personaje.*;
 import Herramientas.FuncionesUtiles;
 import java.util.ArrayList;
@@ -6,35 +7,75 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        PersonajeJugador jugador_prueba = new PersonajeJugador("Nel", 2, 3, "Ramiro", 4);
-        PersonajeNoJugador npc_prueba1 = new PersonajeNoJugador("Goblin", 1, 2, 1, 2, 3, 4);
-        PersonajeNoJugador npc_prueba2 = new PersonajeNoJugador("Orco", 1, 2, 2, 2, 3, 4);
-        PersonajeNoJugador npc_prueba3 = new PersonajeNoJugador("Troll", 1, 2, 3, 2, 3, 4);
-        ArrayList<PersonajeJugador> listaDePj = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        CrearObjetosPj seteo_pj = new CrearObjetosPj();
+        ArrayList<Personaje> personajesJugadores = new ArrayList<>(seteo_pj.listaDePj());
+        ArrayList<PersonajeNoJugador> personajesNoJugadores = new ArrayList<>();
         FuncionesUtiles funciones = new FuncionesUtiles();
-        ArrayList<Personaje> personajes = new ArrayList<>();
-        personajes.add(jugador_prueba);
-        personajes.add(npc_prueba1);
-        personajes.add(npc_prueba2);
-        personajes.add(npc_prueba3);
-        funciones.lanzar_iniciativa(personajes);
-        for (Personaje personaje : personajes) {
-            System.out.println(personaje.getNombre_personaje() + " tiene de iniciativa: " + personaje.getIniciativa_actual());
+
+        while(true){
+            System.out.println("1. Crear un personaje no jugador");
+            System.out.println("2. tirar iniciativa");
+            System.out.println("3. tirar percepcion");
+            System.out.println("4. tirar tasación");
+            System.out.println("5. tirar salvacion de reflejos");
+            System.out.println("6. tirar salvacion de voluntad");
+            System.out.println("7. tirar salvacion de fortaleza");
+            System.out.println("8. Salir");
+
+            int opcion;
+            try {
+                System.out.print("Introduce una opción: ");
+                String input = sc.nextLine();
+                if (input.trim().isEmpty()) {
+                    throw new IllegalArgumentException("La salvación de reflejos del personaje no puede estar vacía");
+                }
+                opcion = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Introduce un número entero válido (sin coma)");
+                continue;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+            switch (opcion){
+                case 1:
+                    CrearNPC crear_npc = new CrearNPC();
+                    personajesNoJugadores.add(crear_npc.crearNPC());
+                    System.out.println("se creo correctamente el npc");
+                    break;
+                case 2:
+                    ArrayList<Personaje> lista_combate = new ArrayList<>();
+                    lista_combate.addAll(personajesJugadores);
+                    lista_combate.addAll(personajesNoJugadores);
+                    funciones.lanzar_iniciativa(lista_combate);
+                    ArrayList<Personaje> lista_combate_ordenada = funciones.ordenar_iniciativa(lista_combate);
+                    funciones.mostrar_iniciativa(lista_combate_ordenada);
+                    break;
+                case 3:
+                    funciones.tirar_percepcion(personajesJugadores);
+                    break;
+
+                case 4:
+                    funciones.tirar_tasacion(personajesJugadores);
+                    break;
+                case 5:
+                    funciones.tirada_reflejos(personajesNoJugadores);
+                    break;
+                case 6:
+                    funciones.tirada_voluntad(personajesNoJugadores);
+                    break;
+                case 7:
+                    funciones.tirada_fortaleza(personajesNoJugadores);
+                    break;
+                case 8:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Opción no válida");
+            }
         }
-        System.out.println("-------------------");
-        ArrayList<Personaje> personajesOrdenado = new ArrayList<>(funciones.ordenar_iniciativa(personajes));
-        for (Personaje personaje : personajesOrdenado) {
-            System.out.println(personaje.getNombre_personaje() + " tiene de iniciativa: " + personaje.getIniciativa_actual());
-        }
-        CrearNPC jose = new CrearNPC();
-        PersonajeNoJugador npc = jose.crearNPC();
-        System.out.println("nombre: " +npc.getNombre_personaje());
-        System.out.println("iniciativa: "+ npc.getModificador_iniciativa());
-        System.out.println("Percepcion: " + npc.getPercepcion());
-        System.out.println("numero_npc: " + npc.getNumero_npc());
-        System.out.println("reflejo: " + npc.getSalvacion_reflejos());
-        System.out.println("voluntad: " + npc.getSalvacion_voluntad());
-        System.out.println("fortaleza: " + npc.getSalvacion_fortaleza());
+
 
     }
 }

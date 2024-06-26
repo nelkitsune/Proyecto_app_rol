@@ -1,6 +1,8 @@
 package Personaje;
 
-public class PersonajeNoJugador extends Personaje implements Tiradas{
+import Herramientas.Tiradas;
+
+public class PersonajeNoJugador extends Personaje implements Tiradas {
     private int numero_npc;
     private int salvacion_reflejos;
     private int salvacion_voluntad;

@@ -1,6 +1,8 @@
 package Personaje;
 
-public class PersonajeJugador extends Personaje implements Tiradas{
+import Herramientas.Tiradas;
+
+public class PersonajeJugador extends Personaje implements Tiradas {
     private String nombre_jugador;
     private int tasacion;
 
