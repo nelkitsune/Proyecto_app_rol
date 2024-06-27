@@ -1,17 +1,18 @@
 package Personaje;
-
+//clase abstracta de la que heredaran los personajes jugadores y no jugadores
 public abstract class Personaje {
-    private String nombre_personaje;
-    private int modificador_iniciativa;
-    private int percepcion;
-    private int iniciativa_actual;
+    private String nombre_personaje; //nombre del personaje
+    private int modificador_iniciativa; //modificador de iniciativa del personaje
+    private int percepcion; //percepcion del personaje
+    private int iniciativa_actual; //iniciativa actual del personaje despues de lanzar el dado
 
-    public Personaje(String nombre_personaje, int iniciativa, int percepcion) {
+    public Personaje(String nombre_personaje, int iniciativa, int percepcion) {//constructor de la clase
         this.nombre_personaje = nombre_personaje;
         this.modificador_iniciativa = iniciativa;
         this.percepcion = percepcion;
     }
 
+    //metodos get y set de los atributos de la clase
     public String getNombre_personaje() {
         return nombre_personaje;
     }
@@ -43,4 +44,5 @@ public abstract class Personaje {
     public void setIniciativa_actual(int iniciativa_actual) {
         this.iniciativa_actual = iniciativa_actual;
     }
+
 }
