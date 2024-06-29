@@ -87,7 +87,7 @@ public class FuncionesUtiles {
         }
         //recorremos la lista de personajes
         for (Personaje personaje : personajes) {
-
+            System.out.println("****************************************");
             int resultado_tirada = 0;
 
             if (personaje instanceof PersonajeJugador) {
@@ -151,6 +151,7 @@ public class FuncionesUtiles {
 
         }
         for (Personaje personaje : personajes) {
+            System.out.println("****************************************");
             int resultado_tirada = 0;
             PersonajeJugador pj = (PersonajeJugador) personaje;
             resultado_tirada = pj.tirar_tasacion(pj.getTasacion());
@@ -197,6 +198,7 @@ public class FuncionesUtiles {
 
         }
         for (PersonajeNoJugador personaje : personajeNoJugador) {
+            System.out.println("****************************************");
             int resultado_tirada = 0;
             PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
             resultado_tirada = pnj.tirar_salvacion_reflejo(pnj.getSalvacion_reflejos());
@@ -234,6 +236,7 @@ public class FuncionesUtiles {
 
         }
         for (PersonajeNoJugador personaje : personajeNoJugador) {
+            System.out.println("****************************************");
             int resultado_tirada = 0;
             PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
             resultado_tirada = pnj.tirar_salvacion_fortaleza(pnj.getSalvacion_fortaleza());
@@ -271,6 +274,7 @@ public class FuncionesUtiles {
 
         }
         for (PersonajeNoJugador personaje : personajeNoJugador) {
+            System.out.println("****************************************");
             int resultado_tirada = 0;
             PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
             resultado_tirada = pnj.tirar_salvacion_voluntad(pnj.getSalvacion_voluntad());

@@ -1,5 +1,6 @@
 import Herramientas.CrearNPC;
 import Herramientas.CrearObjetosPj;
+import Herramientas.CrearPj;
 import Personaje.*;
 import Herramientas.FuncionesUtiles;
 import java.util.ArrayList;
@@ -14,16 +15,23 @@ public class Main {
         ArrayList<PersonajeNoJugador> personajesNoJugadores = new ArrayList<>();
         FuncionesUtiles funciones = new FuncionesUtiles();
 
+
         //menu de opciones para el usuario
         while(true){
-            System.out.println("1. Crear un personaje no jugador");
-            System.out.println("2. tirar iniciativa");
-            System.out.println("3. tirar percepcion");
-            System.out.println("4. tirar tasación");
-            System.out.println("5. tirar salvacion de reflejos");
-            System.out.println("6. tirar salvacion de voluntad");
-            System.out.println("7. tirar salvacion de fortaleza");
-            System.out.println("8. Salir");
+            System.out.println("****************************************");
+            System.out.println("Bienvenido al programa de personajes");
+            System.out.println("Menú de opciones");
+            System.out.println("1. Crear un personaje jugador");
+            System.out.println("2. Crear un personaje no jugador");
+            System.out.println("3. tirar iniciativa");
+            System.out.println("4. tirar percepcion");
+            System.out.println("5. tirar tasación");
+            System.out.println("6. tirar salvacion de reflejos");
+            System.out.println("7. tirar salvacion de voluntad");
+            System.out.println("8. tirar salvacion de fortaleza");
+            System.out.println("9. Salir");
+            System.out.println("****************************************");
+
 
             int opcion;
 
@@ -43,12 +51,17 @@ public class Main {
                 continue;
             }
             switch (opcion){//segun la opcion que elija el usuario se ejecutara una funcion
-                case 1://creamos un npc
+                case 1://creamos un pj
+                    CrearPj crearPj = new CrearPj();
+                    personajesJugadores.add(crearPj.crearPj());
+                    System.out.println("se creo correctamente el personaje");
+                    break;
+                case 2://creamos un npc
                     CrearNPC crear_npc = new CrearNPC();
                     personajesNoJugadores.add(crear_npc.crearNPC());
                     System.out.println("se creo correctamente el npc");
                     break;
-                case 2://lanzamos la iniciativa y mostramos el orden de los personajes
+                case 3://lanzamos la iniciativa y mostramos el orden de los personajes
                     ArrayList<Personaje> lista_combate = new ArrayList<>();
                     lista_combate.addAll(personajesJugadores);
                     lista_combate.addAll(personajesNoJugadores);
@@ -56,23 +69,23 @@ public class Main {
                     ArrayList<Personaje> lista_combate_ordenada = funciones.ordenar_iniciativa(lista_combate);
                     funciones.mostrar_iniciativa(lista_combate_ordenada);
                     break;
-                case 3://lanzamos la percepcion de los personajes
+                case 4://lanzamos la percepcion de los personajes
                     funciones.tirar_percepcion(personajesJugadores);
                     break;
 
-                case 4://lanzamos la tasacion de los personajes
+                case 5://lanzamos la tasacion de los personajes
                     funciones.tirar_tasacion(personajesJugadores);
                     break;
-                case 5://lanzamos la salvacion de reflejos de los personajes
+                case 6://lanzamos la salvacion de reflejos de los personajes
                     funciones.tirada_reflejos(personajesNoJugadores);
                     break;
-                case 6://lanzamos la salvacion de voluntad de los personajes
+                case 7://lanzamos la salvacion de voluntad de los personajes
                     funciones.tirada_voluntad(personajesNoJugadores);
                     break;
-                case 7://lanzamos la salvacion de fortaleza de los personajes
+                case 8://lanzamos la salvacion de fortaleza de los personajes
                     funciones.tirada_fortaleza(personajesNoJugadores);
                     break;
-                case 8://salimos del programa
+                case 9://salimos del programa
                     System.exit(0);
                     break;
                 default://opcion no valida

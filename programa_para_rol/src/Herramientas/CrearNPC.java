@@ -16,7 +16,6 @@ public class CrearNPC { //clase para crear un personaje no jugador
         int salvacion_voluntad_npc; //salvacion de voluntad del personaje
         int salvacion_fortaleza_npc; //salvacion de fortaleza del personaje
         Scanner sc = new Scanner(System.in);
-
         while (true) {  //validamos que el nombre del personaje no este vacio
             try {
                 System.out.print("Introduce el nombre del personaje: ");
@@ -43,10 +42,10 @@ public class CrearNPC { //clase para crear un personaje no jugador
                 break;
             }catch (NumberFormatException e) {
                 System.out.println("Introduce un numero entero valido (sin coma)");
-                continue;
+
             }catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
-                continue;
+
             }
         }
 
