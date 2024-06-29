@@ -83,44 +83,43 @@ public class FuncionesUtiles {
                 System.out.println(e.getMessage());
                 continue;
             }
-
         }
         //recorremos la lista de personajes
         for (Personaje personaje : personajes) {
-
+            int resultado_tirada_total = 0;
             int resultado_tirada = 0;
 
             if (personaje instanceof PersonajeJugador) {
-
                 PersonajeJugador pj = (PersonajeJugador) personaje;
-
-                resultado_tirada = pj.tirar_percepcion(pj.getPercepcion());
-
-                if (resultado_tirada >= dificultad) {
-
-                    System.out.println(pj.getNombre_personaje() + " ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
-                } else {
-
-                    System.out.println(pj.getNombre_personaje() +  " no ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
+                resultado_tirada = pj.tirar_percepcion();
+                resultado_tirada_total = resultado_tirada + pj.getPercepcion();
+                if (resultado_tirada == 20){
+                    System.out.println(pj.getNombre_personaje() + " ha sacado un 20 natural en la tirada de percepcion");
+                } else if (resultado_tirada == 1){
+                    System.out.println(pj.getNombre_personaje() + " ha sacado un 1 natural en la tirada de percepcion");
+                }else {
+                        if (resultado_tirada_total >= dificultad) {
+                            System.out.println(pj.getNombre_personaje() + " ha superado la tirada de percepcion con un resultado de: " + resultado_tirada_total);
+                        } else {
+                            System.out.println(pj.getNombre_personaje() +  " no ha superado la tirada de percepcion con un resultado de: " + resultado_tirada_total);
+                        }
                 }
 
             }else if (personaje instanceof PersonajeNoJugador) {
-
                 PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-
-                resultado_tirada = pnj.tirar_percepcion(pnj.getPercepcion());
-
-                if (resultado_tirada >= dificultad) {
-
-                    System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() +  " ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
-                } else {
-
-                    System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
+                resultado_tirada = pnj.tirar_percepcion();
+                if (resultado_tirada == 20){
+                    System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 20 natural en la tirada de percepcion");
+                } else if (resultado_tirada == 1){
+                    System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 1 natural en la tirada de percepcion");
+                }else{
+                    if (resultado_tirada >= dificultad) {
+                        System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() +  " ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
+                    } else {
+                        System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
+                    }
                 }
+
             }
         }
     }
@@ -151,18 +150,17 @@ public class FuncionesUtiles {
 
         }
         for (Personaje personaje : personajes) {
+            int resultado_tirada_total = 0;
             int resultado_tirada = 0;
             PersonajeJugador pj = (PersonajeJugador) personaje;
-            resultado_tirada = pj.tirar_tasacion(pj.getTasacion());
-            if(resultado_tirada >= dificultad){
-                if (resultado_tirada > dificultad + 5){
-                    System.out.println(pj.getNombre_personaje() + " ha superado la tirada de tasacion con un resultado de: " + resultado_tirada + " y pueded determinar si es magico");
-                }else{
-                    System.out.println(pj.getNombre_personaje() + " ha superado la tirada de tasacion con un resultado de: " + resultado_tirada);
-                }
-
+            resultado_tirada = pj.tirar_tasacion();
+            resultado_tirada_total = resultado_tirada + pj.getTasacion();
+            if (resultado_tirada == 20){
+                System.out.println(pj.getNombre_personaje() + " ha sacado un 20 natural en la tirada de tasacion");
+            } else if (resultado_tirada == 1){
+                System.out.println(pj.getNombre_personaje() + " ha sacado un 1 natural en la tirada de tasacion");
             }else{
-                if (resultado_tirada > dificultad - 5) {
+                if (resultado_tirada_total > dificultad - 5) {
                     System.out.println(pj.getNombre_personaje() + " no ha superado la tirada de tasacion con un resultado de: " + resultado_tirada + " y tiene un 20% de fallo al valor original");
                 }else if(resultado_tirada<= dificultad - 5){
                     System.out.println(pj.getNombre_personaje() + " no ha superado la tirada de tasacion con un resultado de: " + resultado_tirada + " y tiene un valor aleatorio para el objeto");
@@ -194,21 +192,30 @@ public class FuncionesUtiles {
                 System.out.println(e.getMessage());
                 continue;
             }
-
         }
+
         for (PersonajeNoJugador personaje : personajeNoJugador) {
             int resultado_tirada = 0;
+            int resultado_tirada_total = 0;
             PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-            resultado_tirada = pnj.tirar_salvacion_reflejo(pnj.getSalvacion_reflejos());
-            if(resultado_tirada >= dificultad){
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de reflejos con un resultado de: " + resultado_tirada);
-            }else{
+            resultado_tirada = pnj.tirar_salvacion_reflejo();
+            resultado_tirada_total = resultado_tirada + pnj.getSalvacion_reflejos();
+            if (resultado_tirada == 20){
+                System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 20 natural en la tirada de salvacion de reflejos");
+            } else if (resultado_tirada == 1) {
+                System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 1 natural en la tirada de salvacion de reflejos");
+            }else {
+                if(resultado_tirada_total >= dificultad){
+                    System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de reflejos con un resultado de: " + resultado_tirada);
+                }else{
                     System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() +  " no ha superado la tirada de salvacion de reflejos con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+                }
             }
+
         }
     }
 
-    public void tirada_fortaleza(ArrayList<PersonajeNoJugador> personajeNoJugador){ //metodo para lanzar la salvacion de fortaleza de los personajes
+    public void tirada_fortaleza(ArrayList<PersonajeNoJugador> personajeNoJugador) { //metodo para lanzar la salvacion de fortaleza de los personajes
         Scanner sc = new Scanner(System.in);
         String input;
         int dificultad;
@@ -235,12 +242,20 @@ public class FuncionesUtiles {
         }
         for (PersonajeNoJugador personaje : personajeNoJugador) {
             int resultado_tirada = 0;
+            int resultado_tirada_total = 0;
             PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-            resultado_tirada = pnj.tirar_salvacion_fortaleza(pnj.getSalvacion_fortaleza());
-            if(resultado_tirada >= dificultad){
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de fortaleza con un resultado de: " + resultado_tirada);
-            }else{
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de salvacion de fortaleza con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+            resultado_tirada = pnj.tirar_salvacion_fortaleza();
+            resultado_tirada_total = resultado_tirada + pnj.getSalvacion_fortaleza();
+            if (resultado_tirada == 20) {
+                System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 20 natural en la tirada de salvacion de fortaleza");
+            } else if (resultado_tirada == 1) {
+                System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 1 natural en la tirada de salvacion de fortaleza");
+            } else {
+                if (resultado_tirada_total >= dificultad) {
+                    System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de fortaleza con un resultado de: " + resultado_tirada);
+                } else {
+                    System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " no ha superado la tirada de salvacion de fortaleza con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+                }
             }
         }
     }
@@ -272,13 +287,22 @@ public class FuncionesUtiles {
         }
         for (PersonajeNoJugador personaje : personajeNoJugador) {
             int resultado_tirada = 0;
+            int resultado_tirada_total = 0;
             PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-            resultado_tirada = pnj.tirar_salvacion_voluntad(pnj.getSalvacion_voluntad());
-            if(resultado_tirada >= dificultad){
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de voluntad con un resultado de: " + resultado_tirada);
+            resultado_tirada = pnj.tirar_salvacion_voluntad();
+            resultado_tirada_total = resultado_tirada + pnj.getSalvacion_voluntad();
+            if (resultado_tirada == 20){
+                System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 20 natural en la tirada de salvacion de voluntad");
+            } else if (resultado_tirada == 1) {
+                System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() + " ha sacado un 1 natural en la tirada de salvacion de voluntad");
             }else{
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de salvacion de voluntad con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+                if(resultado_tirada >= dificultad){
+                    System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de voluntad con un resultado de: " + resultado_tirada);
+                }else{
+                    System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de salvacion de voluntad con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+                }
             }
+
         }
     }
 }

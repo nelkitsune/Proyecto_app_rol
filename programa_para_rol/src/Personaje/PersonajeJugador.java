@@ -37,12 +37,12 @@ public class PersonajeJugador extends Personaje implements Tiradas {
         return getIniciativa_actual();
     }
     @Override
-    public int tirar_percepcion(int modificador_percepcion) { //metodo para tirar la percepcion
-        return Tiradas.super.tirar_percepcion(modificador_percepcion);
+    public int tirar_percepcion() { //metodo para tirar la percepcion
+        return Tiradas.super.tirar_percepcion();
     }
 
     @Override
-    public int tirar_tasacion(int modificador_tasacion) {//metodo para tirar la tasacion
-        return Tiradas.super.tirar_tasacion(modificador_tasacion);
+    public int tirar_tasacion() {//metodo para tirar la tasacion
+        return Tiradas.super.tirar_tasacion();
     }
 }

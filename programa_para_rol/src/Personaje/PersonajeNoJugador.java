@@ -56,22 +56,22 @@ public class PersonajeNoJugador extends Personaje implements Tiradas {
         return getIniciativa_actual();
     }
     @Override
-    public int tirar_salvacion_reflejo(int modificador_salvacion_reflejo) { //metodo para tirar la salvacion de reflejos
-        return Tiradas.super.tirar_salvacion_reflejo(modificador_salvacion_reflejo);
+    public int tirar_salvacion_reflejo() { //metodo para tirar la salvacion de reflejos
+        return Tiradas.super.tirar_salvacion_reflejo();
     }
 
     @Override
-    public int tirar_salvacion_voluntad(int modificador_salvacion_voluntad) { //metodo para tirar la salvacion de voluntad
-        return Tiradas.super.tirar_salvacion_voluntad(modificador_salvacion_voluntad);
+    public int tirar_salvacion_voluntad() { //metodo para tirar la salvacion de voluntad
+        return Tiradas.super.tirar_salvacion_voluntad();
     }
 
     @Override
-    public int tirar_salvacion_fortaleza(int modificador_salvacion_fortaleza) { //metodo para tirar la salvacion de fortaleza
-        return Tiradas.super.tirar_salvacion_fortaleza(modificador_salvacion_fortaleza);
+    public int tirar_salvacion_fortaleza() { //metodo para tirar la salvacion de fortaleza
+        return Tiradas.super.tirar_salvacion_fortaleza();
     }
 
     @Override
-    public int tirar_percepcion(int modificador_percepcion) { //metodo para tirar la percepcion
-        return Tiradas.super.tirar_percepcion(modificador_percepcion);
+    public int tirar_percepcion() { //metodo para tirar la percepcion
+        return Tiradas.super.tirar_percepcion();
     }
 }
