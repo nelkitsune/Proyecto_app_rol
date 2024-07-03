@@ -2,6 +2,8 @@ package Herramientas;
 import Personaje.PersonajeNoJugador;
 import Personaje.Personaje;
 import Personaje.PersonajeJugador;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,231 +60,158 @@ public class FuncionesUtiles {
         }
     }
 
-    public void tirar_percepcion(ArrayList<Personaje> personajes) { //metodo para lanzar la percepcion de los personajes
-        Scanner sc = new Scanner(System.in);
-        String input; //variable para capturar la entrada del usuario
-        int dificultad; //dificultad de la percepcion
-
-        while (true) { //validamos que la dificultad de la percepcion no este vacia
-
-            try {//validamos que la dificultad de la percepcion no sea negativa ni menor a 1
-                System.out.print("Introdusca la dificultad de la percepcion: ");
-                input = sc.nextLine();
-                if (input.trim().isEmpty()) {
-                    throw new IllegalArgumentException("La dificultad de la percepcion no puede estar vacia");
-                }
-                dificultad = Integer.parseInt(input);
-                if (dificultad < 1) {
-                    throw new IllegalArgumentException("La dificultad de la percepcion no puede ser negativa ni menor a 1");
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Introduce un numero entero valido (sin coma)");
-                continue;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-
-        }
-        //recorremos la lista de personajes
+    public void tirar_percepcion(ArrayList<Personaje> personajes, int dificultad, JTextArea textArea) {
+        StringBuilder percepcionText = new StringBuilder();
         for (Personaje personaje : personajes) {
-            System.out.println("****************************************");
-            int resultado_tirada = 0;
+            int resultado_tirada;
 
             if (personaje instanceof PersonajeJugador) {
-
                 PersonajeJugador pj = (PersonajeJugador) personaje;
-
                 resultado_tirada = pj.tirar_percepcion(pj.getPercepcion());
 
                 if (resultado_tirada >= dificultad) {
-
-                    System.out.println(pj.getNombre_personaje() + " ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
+                    percepcionText.append(pj.getNombre_personaje())
+                            .append(" ha superado la tirada de percepción con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append("\n");
                 } else {
-
-                    System.out.println(pj.getNombre_personaje() +  " no ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
+                    percepcionText.append(pj.getNombre_personaje())
+                            .append(" no ha superado la tirada de percepción con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append("\n");
                 }
 
-            }else if (personaje instanceof PersonajeNoJugador) {
-
+            } else if (personaje instanceof PersonajeNoJugador) {
                 PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-
                 resultado_tirada = pnj.tirar_percepcion(pnj.getPercepcion());
 
                 if (resultado_tirada >= dificultad) {
-
-                    System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() +  " ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
+                    percepcionText.append(pnj.getNombre_personaje())
+                            .append(" ")
+                            .append(pnj.getNumero_npc())
+                            .append(" ha superado la tirada de percepción con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append("\n");
                 } else {
-
-                    System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de percepcion con un resultado de: " + resultado_tirada);
-
+                    percepcionText.append(pnj.getNombre_personaje())
+                            .append(" ")
+                            .append(pnj.getNumero_npc())
+                            .append(" no ha superado la tirada de percepción con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append("\n");
                 }
             }
         }
+
+        textArea.setText(percepcionText.toString());
     }
-    //metodo para lanzar la tasacion de los personajes
-    public void tirar_tasacion(ArrayList<Personaje> personajes) {
-        Scanner sc = new Scanner(System.in);
-        String input;
-        int dificultad;
-        while (true) {
-            try {
-                System.out.print("Introdusca la dificultad de la tasacion: ");
-                input = sc.nextLine();
-                if (input.trim().isEmpty()) {
-                    throw new IllegalArgumentException("La dificultad de la percepcion no puede estar vacia");
-                }
-                dificultad = Integer.parseInt(input);
-                if (dificultad < 2) {
-                    throw new IllegalArgumentException("La dificultad de la percepcion no puede ser negativa ni menor a 2");
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Introduce un numero entero valido (sin coma)");
-                continue;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
 
-        }
+    //metodo para lanzar la tasacion de los personajes
+    public void tirar_tasacion(ArrayList<Personaje> personajes, int dificultad, JTextArea textArea) {
+        StringBuilder tasacionText = new StringBuilder();
         for (Personaje personaje : personajes) {
-            System.out.println("****************************************");
             int resultado_tirada = 0;
             PersonajeJugador pj = (PersonajeJugador) personaje;
             resultado_tirada = pj.tirar_tasacion(pj.getTasacion());
-            if(resultado_tirada >= dificultad){
-                if (resultado_tirada > dificultad + 5){
-                    System.out.println(pj.getNombre_personaje() + " ha superado la tirada de tasacion con un resultado de: " + resultado_tirada + " y pueded determinar si es magico");
-                }else{
-                    System.out.println(pj.getNombre_personaje() + " ha superado la tirada de tasacion con un resultado de: " + resultado_tirada);
+            if (resultado_tirada >= dificultad) {
+                if (resultado_tirada > dificultad + 5) {
+                    tasacionText.append(pj.getNombre_personaje())
+                            .append(" ha superado la tirada de tasación con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append(" y puede determinar si es mágico\n");
+                } else {
+                    tasacionText.append(pj.getNombre_personaje())
+                            .append(" ha superado la tirada de tasación con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append("\n");
                 }
-
-            }else{
+            } else {
                 if (resultado_tirada > dificultad - 5) {
-                    System.out.println(pj.getNombre_personaje() + " no ha superado la tirada de tasacion con un resultado de: " + resultado_tirada + " y tiene un 20% de fallo al valor original");
-                }else if(resultado_tirada<= dificultad - 5){
-                    System.out.println(pj.getNombre_personaje() + " no ha superado la tirada de tasacion con un resultado de: " + resultado_tirada + " y tiene un valor aleatorio para el objeto");
+                    tasacionText.append(pj.getNombre_personaje())
+                            .append(" no ha superado la tirada de tasación con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append(" y tiene un 20% de fallo al valor original\n");
+                } else {
+                    tasacionText.append(pj.getNombre_personaje())
+                            .append(" no ha superado la tirada de tasación con un resultado de: ")
+                            .append(resultado_tirada)
+                            .append(" y tiene un valor aleatorio para el objeto\n");
                 }
-
             }
         }
+        textArea.setText(tasacionText.toString());
     }
-    public void tirada_reflejos(ArrayList<PersonajeNoJugador> personajeNoJugador){ //metodo para lanzar la salvacion de reflejos de los personajes
-        Scanner sc = new Scanner(System.in);
-        String input;
-        int dificultad;
-        while (true) {
-            try {
-                System.out.print("Introdusca la dificultad de la salvacion de reflejos: ");
-                input = sc.nextLine();
-                if (input.trim().isEmpty()) {
-                    throw new IllegalArgumentException("La dificultad de la salvacion de reflejos no puede estar vacia");
-                }
-                dificultad = Integer.parseInt(input);
-                if (dificultad < 2) {
-                    throw new IllegalArgumentException("La dificultad de la salvacion de reflejos no puede ser negativa ni menor a 2");
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Introduce un numero entero valido (sin coma)");
-                continue;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-
-        }
+    public void tirada_reflejos(ArrayList<PersonajeNoJugador> personajeNoJugador, int dificultad, JTextArea textArea) {
+        StringBuilder reflejosText = new StringBuilder();
         for (PersonajeNoJugador personaje : personajeNoJugador) {
-            System.out.println("****************************************");
             int resultado_tirada = 0;
-            PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-            resultado_tirada = pnj.tirar_salvacion_reflejo(pnj.getSalvacion_reflejos());
-            if(resultado_tirada >= dificultad){
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de reflejos con un resultado de: " + resultado_tirada);
-            }else{
-                    System.out.println(pnj.getNombre_personaje() + " " + pnj.getNumero_npc() +  " no ha superado la tirada de salvacion de reflejos con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+            resultado_tirada = personaje.tirar_salvacion_reflejo(personaje.getSalvacion_reflejos());
+            if (resultado_tirada >= dificultad) {
+                reflejosText.append(personaje.getNombre_personaje())
+                        .append(" ")
+                        .append(personaje.getNumero_npc())
+                        .append(" ha superado la tirada de salvación de reflejos con un resultado de: ")
+                        .append(resultado_tirada)
+                        .append("\n");
+            } else {
+                reflejosText.append(personaje.getNombre_personaje())
+                        .append(" ")
+                        .append(personaje.getNumero_npc())
+                        .append(" no ha superado la tirada de salvación de reflejos con un resultado de: ")
+                        .append(resultado_tirada)
+                        .append(" y recibe el daño completo\n");
             }
         }
+        textArea.setText(reflejosText.toString());
     }
 
-    public void tirada_fortaleza(ArrayList<PersonajeNoJugador> personajeNoJugador){ //metodo para lanzar la salvacion de fortaleza de los personajes
-        Scanner sc = new Scanner(System.in);
-        String input;
-        int dificultad;
-        while (true) {
-            try {
-                System.out.print("Introdusca la dificultad de la salvacion de fortaleza: ");
-                input = sc.nextLine();
-                if (input.trim().isEmpty()) {
-                    throw new IllegalArgumentException("La dificultad de la salvacion de fortaleza no puede estar vacia");
-                }
-                dificultad = Integer.parseInt(input);
-                if (dificultad < 2) {
-                    throw new IllegalArgumentException("La dificultad de la salvacion de fortaleza no puede ser negativa ni menor a 2");
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Introduce un numero entero valido (sin coma)");
-                continue;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-
-        }
+    public void tirada_fortaleza(ArrayList<PersonajeNoJugador> personajeNoJugador, int dificultad, JTextArea textArea) {
+        StringBuilder fortalezaText = new StringBuilder();
         for (PersonajeNoJugador personaje : personajeNoJugador) {
-            System.out.println("****************************************");
             int resultado_tirada = 0;
-            PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-            resultado_tirada = pnj.tirar_salvacion_fortaleza(pnj.getSalvacion_fortaleza());
-            if(resultado_tirada >= dificultad){
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de fortaleza con un resultado de: " + resultado_tirada);
-            }else{
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de salvacion de fortaleza con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+            resultado_tirada = personaje.tirar_salvacion_fortaleza(personaje.getSalvacion_fortaleza());
+            if (resultado_tirada >= dificultad) {
+                fortalezaText.append(personaje.getNombre_personaje())
+                        .append(" ")
+                        .append(personaje.getNumero_npc())
+                        .append(" ha superado la tirada de salvación de fortaleza con un resultado de: ")
+                        .append(resultado_tirada)
+                        .append("\n");
+            } else {
+                fortalezaText.append(personaje.getNombre_personaje())
+                        .append(" ")
+                        .append(personaje.getNumero_npc())
+                        .append(" no ha superado la tirada de salvación de fortaleza con un resultado de: ")
+                        .append(resultado_tirada)
+                        .append(" y recibe el daño completo\n");
             }
         }
+        textArea.setText(fortalezaText.toString());
     }
 
-    public void tirada_voluntad(ArrayList<PersonajeNoJugador> personajeNoJugador){ //metodo para lanzar la salvacion de voluntad de los personajes
-        Scanner sc = new Scanner(System.in);
-        String input;
-        int dificultad;
-        while (true) {
-            try {
-                System.out.print("Introdusca la dificultad de la salvacion de voluntad: ");
-                input = sc.nextLine();
-                if (input.trim().isEmpty()) {
-                    throw new IllegalArgumentException("La dificultad de la salvacion de voluntad no puede estar vacia");
-                }
-                dificultad = Integer.parseInt(input);
-                if (dificultad < 2) {
-                    throw new IllegalArgumentException("La dificultad de la salvacion de voluntad no puede ser negativa ni menor a 2");
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Introduce un numero entero valido (sin coma)");
-                continue;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
 
-        }
+    public void tirada_voluntad(ArrayList<PersonajeNoJugador> personajeNoJugador, int dificultad, JTextArea textArea) {
+        StringBuilder voluntadText = new StringBuilder();
         for (PersonajeNoJugador personaje : personajeNoJugador) {
-            System.out.println("****************************************");
             int resultado_tirada = 0;
-            PersonajeNoJugador pnj = (PersonajeNoJugador) personaje;
-            resultado_tirada = pnj.tirar_salvacion_voluntad(pnj.getSalvacion_voluntad());
-            if(resultado_tirada >= dificultad){
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " ha superado la tirada de salvacion de voluntad con un resultado de: " + resultado_tirada);
-            }else{
-                System.out.println(pnj.getNombre_personaje() +  " " + pnj.getNumero_npc() + " no ha superado la tirada de salvacion de voluntad con un resultado de: " + resultado_tirada + " y recibe el daño completo");
+            resultado_tirada = personaje.tirar_salvacion_voluntad(personaje.getSalvacion_voluntad());
+            if (resultado_tirada >= dificultad) {
+                voluntadText.append(personaje.getNombre_personaje())
+                        .append(" ")
+                        .append(personaje.getNumero_npc())
+                        .append(" ha superado la tirada de salvación de voluntad con un resultado de: ")
+                        .append(resultado_tirada)
+                        .append("\n");
+            } else {
+                voluntadText.append(personaje.getNombre_personaje())
+                        .append(" ")
+                        .append(personaje.getNumero_npc())
+                        .append(" no ha superado la tirada de salvación de voluntad con un resultado de: ")
+                        .append(resultado_tirada)
+                        .append(" y recibe el daño completo\n");
             }
         }
+        textArea.setText(voluntadText.toString());
     }
+
 }
