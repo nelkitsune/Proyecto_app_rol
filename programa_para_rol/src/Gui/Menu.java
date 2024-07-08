@@ -1,7 +1,11 @@
 package Gui;
 
+import Personaje.PersonajeJugador;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
     private JPanel panel_principal;
@@ -241,6 +245,28 @@ public class Menu extends JFrame {
 
         add(panel_principal, BorderLayout.CENTER);
         setVisible(true);
+
+        button_agregarPersonajeJugador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombre_personaje;
+                String nombre_jugador;
+                int iniciativa;
+                int percepcion;
+                int tasacion;
+
+                nombre_personaje = textField_personajeJugador1.getText();
+                nombre_jugador = textField_personajeJugador2.getText();
+                iniciativa = Integer.parseInt(textField_personajeJugador3.getText());
+                percepcion = Integer.parseInt(textField_personajeJugador4.getText());
+                tasacion = Integer.parseInt(textField_personajeJugador5.getText());
+
+                PersonajeJugador nuevoPJ = new PersonajeJugador(nombre_personaje,iniciativa,percepcion,nombre_jugador,tasacion);
+
+            }
+        });
+
+
     }
 
 }
