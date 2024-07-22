@@ -58,10 +58,10 @@ public class FuncionesUtiles {
         }
     }
 
-    public void tirar_percepcion(ArrayList<Personaje> personajes) { //metodo para lanzar la percepcion de los personajes
+    public void tirar_percepcion(ArrayList<Personaje> personajes, int dificultad) { //metodo para lanzar la percepcion de los personajes
         Scanner sc = new Scanner(System.in);
         String input; //variable para capturar la entrada del usuario
-        int dificultad; //dificultad de la percepcion
+
 
         while (true) { //validamos que la dificultad de la percepcion no este vacia
 
@@ -304,5 +304,129 @@ public class FuncionesUtiles {
             }
 
         }
+    }
+    public StringBuilder tirar_percepcion_gui(ArrayList<PersonajeJugador> personajesJugadores,int dificultad){
+        StringBuilder resultado = new StringBuilder();
+        for (PersonajeJugador personaje : personajesJugadores) {
+            int resultado_tirada_total = 0;
+            int resultado_tirada = 0;
+            resultado.append(personaje.getNombre_personaje()).append(" ha sacado un ");
+            resultado_tirada = personaje.tirar_percepcion();
+            resultado_tirada_total = resultado_tirada + personaje.getPercepcion();
+            if (resultado_tirada == 20){
+                resultado.append("20 Natural en la tirada de percepcion");
+            } else if (resultado_tirada == 1){
+                resultado.append("1 Natural en la tirada de percepcion");
+            }else {
+                if (resultado_tirada_total >= dificultad) {
+                    resultado.append(resultado_tirada_total).append("\n") .append(" Ha superado la tirada de percepcion");
+                } else {
+                    resultado.append(resultado_tirada_total).append("\n") .append(" No ha superado la tirada de percepcion");
+                }
+            }
+            resultado.append("\n").append("---------------------------------").append("\n");
+        }
+        return resultado;
+    }
+    public StringBuilder tirar_tasacion_gui (ArrayList<PersonajeJugador> personajesJugadores, int dificultad){
+        StringBuilder resultado = new StringBuilder();
+        for (PersonajeJugador personaje : personajesJugadores) {
+            int resultado_tirada_total = 0;
+            int resultado_tirada = 0;
+            resultado.append(personaje.getNombre_personaje()).append(" ha sacado un ");
+            resultado_tirada = personaje.tirar_tasacion();
+            resultado_tirada_total = resultado_tirada + personaje.getTasacion();
+            if (resultado_tirada == 20){
+                resultado.append("20 Natural en la tirada de tasacion");
+            } else if (resultado_tirada == 1){
+                resultado.append("1 Natural en la tirada de tasacion");
+            }else{
+                if(resultado_tirada_total >= dificultad + 5){
+                    resultado.append(resultado_tirada_total).append(" Ha superado la tirada de tasacion y puedes saber si es magico o no");
+                }else if(resultado_tirada_total >= dificultad) {
+                    resultado.append(resultado_tirada_total).append(" Ha superado la tirada de tasacion");
+                }else{
+                    if (resultado_tirada_total >= dificultad - 5) {
+                        resultado.append(resultado_tirada_total).append(" No ha superado la tirada de tasacion").append(" y tiene un 20% de fallo al valor original");
+                    }else if(resultado_tirada_total < dificultad - 5){
+                        resultado.append(resultado_tirada_total).append(" No ha superado la tirada de tasacion").append(" y tiene un valor aleatorio para el objeto");
+                    }else {
+                        resultado.append(resultado_tirada_total).append("soy un error");
+                    }
+                }
+
+            }
+            resultado.append("\n") .append("---------------------------------").append("\n");
+        }
+        return resultado;
+    }
+    public StringBuilder tirar_fortaleza_gui(ArrayList<PersonajeNoJugador> personajeNoJugadors,int dificultad){
+        StringBuilder resultado = new StringBuilder();
+        for (PersonajeNoJugador personaje : personajeNoJugadors) {
+            int resultado_tirada = 0;
+            int resultado_tirada_total = 0;
+            resultado.append(personaje.getNombre_personaje()).append(" ").append(personaje.getNumero_npc()).append(" ha sacado un ");
+            resultado_tirada = personaje.tirar_salvacion_fortaleza();
+            resultado_tirada_total = resultado_tirada + personaje.getSalvacion_fortaleza();
+            if (resultado_tirada == 20) {
+                resultado.append("20 Natural en la tirada de salvacion de fortaleza");
+            } else if (resultado_tirada == 1) {
+                resultado.append("1 Natural en la tirada de salvacion de fortaleza");
+            } else {
+                if (resultado_tirada_total >= dificultad) {
+                    resultado.append(resultado_tirada_total).append(" Ha superado la tirada de salvacion de fortaleza");
+                } else {
+                    resultado.append(resultado_tirada_total).append(" No ha superado la tirada de salvacion de fortaleza").append(" y recibe el daño completo");
+                }
+            }
+            resultado.append("\n") .append("---------------------------------").append("\n");
+        }
+        return resultado;
+    }
+    public StringBuilder tirar_reflejos_gui(ArrayList<PersonajeNoJugador> personajeNoJugadors,int dificultad){
+        StringBuilder resultado = new StringBuilder();
+        for (PersonajeNoJugador personaje : personajeNoJugadors) {
+            int resultado_tirada = 0;
+            int resultado_tirada_total = 0;
+            resultado.append(personaje.getNombre_personaje()).append(" ").append(personaje.getNumero_npc()).append(" ha sacado un ");
+            resultado_tirada = personaje.tirar_salvacion_reflejo();
+            resultado_tirada_total = resultado_tirada + personaje.getSalvacion_reflejos();
+            if (resultado_tirada == 20){
+                resultado.append("20 Natural en la tirada de salvacion de reflejos");
+            } else if (resultado_tirada == 1) {
+                resultado.append("1 Natural en la tirada de salvacion de reflejos");
+            }else {
+                if(resultado_tirada_total >= dificultad){
+                    resultado.append(resultado_tirada_total).append(" Ha superado la tirada de salvacion de reflejos");
+                }else{
+                    resultado.append(resultado_tirada_total).append(" No ha superado la tirada de salvacion de reflejos").append(" y recibe el daño completo");
+                }
+            }
+            resultado.append("\n") .append("---------------------------------").append("\n");
+        }
+        return resultado;
+    }
+    public StringBuilder tirar_voluntad_gui(ArrayList<PersonajeNoJugador> personajeNoJugadors,int dificultad){
+        StringBuilder resultado = new StringBuilder();
+        for (PersonajeNoJugador personaje : personajeNoJugadors) {
+            int resultado_tirada = 0;
+            int resultado_tirada_total = 0;
+            resultado.append(personaje.getNombre_personaje()).append(" ").append(personaje.getNumero_npc()).append(" ha sacado un ");
+            resultado_tirada = personaje.tirar_salvacion_voluntad();
+            resultado_tirada_total = resultado_tirada + personaje.getSalvacion_voluntad();
+            if (resultado_tirada == 20){
+                resultado.append("20 Natural en la tirada de salvacion de voluntad");
+            } else if (resultado_tirada == 1) {
+                resultado.append("1 Natural en la tirada de salvacion de voluntad");
+            }else{
+                if(resultado_tirada >= dificultad){
+                    resultado.append(resultado_tirada_total).append(" Ha superado la tirada de salvacion de voluntad");
+                }else{
+                    resultado.append(resultado_tirada_total).append(" No ha superado la tirada de salvacion de voluntad con un resultado de: ").append(" y recibe el daño completo");
+                }
+            }
+            resultado.append("\n") .append("---------------------------------").append("\n");
+        }
+        return resultado;
     }
 }

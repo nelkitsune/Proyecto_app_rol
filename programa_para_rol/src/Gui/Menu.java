@@ -1,11 +1,15 @@
 package Gui;
+import Herramientas.*;
+import Personaje.*;
 
+import Herramientas.CrearObjetosPj;
 import Personaje.PersonajeJugador;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Menu extends JFrame {
     private JPanel panel_principal;
@@ -54,41 +58,57 @@ public class Menu extends JFrame {
     private JLabel label_tiradaPercepcion;
     private JTextArea textAreaPercepcion;
     private JButton botonTirarPercepcion;
+    private JTextField textFieldDificultadPercepcion;
+    private JLabel labelDificultadPercepcion;
 
     private JPanel panel_tasacion;
     private JLabel label_tiradaTasacion;
     private JTextArea textAreaTasacion;
     private JButton botonTirarTasacion;
+    private JTextField textFieldDificultadTasacion;
+    private JLabel labelDificultadTasacion;
 
     private JPanel panel_tiradaFortaleza;
     private JLabel label_tiradaFotaleza;
     private JTextArea textAreaFortaleza;
     private JButton botonTirarFortaleza;
+    private JTextField textFieldDificultadFortaleza;
+    private JLabel labelDificultadFortaleza;
 
     private JPanel panel_tiradaReflejos;
     private JLabel label_tiradaReflejos;
     private JTextArea textAreaReflejo;
     private JButton botonTirarReflejo;
+    private JTextField textFieldDificultadReflejos;
+    private JLabel labelDificultadReflejos;
 
     private JPanel panel_tiradaVoluntad;
     private JLabel label_tiradaVoluntad;
     private JTextArea textAreaVoluntad;
     private JButton botonTirarVoluntad;
+    private JTextField textFieldDificultadVoluntad;
+    private JLabel labelDificultadVoluntad;
 
     public Menu() {
         initComponents();
     }
 
     private void initComponents() {
+        CrearObjetosPj crearObjetosPj = new CrearObjetosPj();
+        ArrayList<PersonajeJugador> personajesJugadores = new ArrayList<>(crearObjetosPj.listaDePj());
+        ArrayList<PersonajeNoJugador> personajesNoJugadores = new ArrayList<>();
+        FuncionesUtiles funciones = new FuncionesUtiles();
+
         setTitle("Primeras Pruebas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1920, 1080);
+        setSize(1500,800);
         setLayout(new BorderLayout());
 
         // Titulo
         panel_titulo = new JPanel();
         label_titulo = new JLabel("App para Rol");
-        panel_titulo.add(label_titulo);
+        panel_titulo.add(label_titulo, BorderLayout.NORTH);
+
 
         // Personaje Jugador
         panel_personajeJugador = new JPanel();
@@ -122,7 +142,7 @@ public class Menu extends JFrame {
 
         // Personaje No Jugador
         panel_personajeNoJugador = new JPanel();
-        panel_personajeNoJugador.setLayout(new GridLayout(8, 2));
+        panel_personajeNoJugador.setLayout(new GridLayout(9, 2));
         label_personajeNoJugador = new JLabel("Crear Personaje No Jugador");
         label_nombreNpc = new JLabel("Nombre NPC: ");
         textField_personajeNoJugador1 = new JTextField(20);
@@ -177,10 +197,18 @@ public class Menu extends JFrame {
         textAreaPercepcion = new JTextArea(5, 20);
         textAreaPercepcion.setLineWrap(true);
         textAreaPercepcion.setWrapStyleWord(true);
+        textFieldDificultadPercepcion = new JTextField(10);
+        labelDificultadPercepcion = new JLabel("Dificultad: ");
         botonTirarPercepcion = new JButton("Tirar Percepción");
+
+        JPanel panel_percepcion_aux = new JPanel();
+        panel_percepcion_aux.add(labelDificultadPercepcion, BorderLayout.WEST);
+        panel_percepcion_aux.add(textFieldDificultadPercepcion, BorderLayout.CENTER);
+
         panel_percepcion.add(label_tiradaPercepcion, BorderLayout.NORTH);
         panel_percepcion.add(new JScrollPane(textAreaPercepcion), BorderLayout.CENTER);
         panel_percepcion.add(botonTirarPercepcion, BorderLayout.SOUTH);
+        panel_percepcion.add(panel_percepcion_aux, BorderLayout.WEST);
 
         // Tasación
         panel_tasacion = new JPanel();
@@ -189,10 +217,19 @@ public class Menu extends JFrame {
         textAreaTasacion = new JTextArea(5, 20);
         textAreaTasacion.setLineWrap(true);
         textAreaTasacion.setWrapStyleWord(true);
+        textFieldDificultadTasacion = new JTextField(10);
+        labelDificultadTasacion = new JLabel("Dificultad: ");
         botonTirarTasacion = new JButton("Tirar Tasación");
+
+        JPanel panel_tasacion_aux = new JPanel();
+        panel_tasacion_aux.add(labelDificultadTasacion, BorderLayout.WEST);
+        panel_tasacion_aux.add(textFieldDificultadTasacion, BorderLayout.CENTER);
+
+        panel_tasacion.add(panel_tasacion_aux, BorderLayout.WEST);
         panel_tasacion.add(label_tiradaTasacion, BorderLayout.NORTH);
         panel_tasacion.add(new JScrollPane(textAreaTasacion), BorderLayout.CENTER);
         panel_tasacion.add(botonTirarTasacion, BorderLayout.SOUTH);
+
 
         // Fortaleza
         panel_tiradaFortaleza = new JPanel();
@@ -201,10 +238,18 @@ public class Menu extends JFrame {
         textAreaFortaleza = new JTextArea(5, 20);
         textAreaFortaleza.setLineWrap(true);
         textAreaFortaleza.setWrapStyleWord(true);
+        textFieldDificultadFortaleza = new JTextField(10);
+        labelDificultadFortaleza = new JLabel("Dificultad: ");
         botonTirarFortaleza = new JButton("Tirar Fortaleza");
+
+        JPanel panel_tiradaFortaleza_aux = new JPanel();
+        panel_tiradaFortaleza_aux.add(labelDificultadFortaleza, BorderLayout.WEST);
+        panel_tiradaFortaleza_aux.add(textFieldDificultadFortaleza, BorderLayout.CENTER);
+
         panel_tiradaFortaleza.add(label_tiradaFotaleza, BorderLayout.NORTH);
         panel_tiradaFortaleza.add(new JScrollPane(textAreaFortaleza), BorderLayout.CENTER);
         panel_tiradaFortaleza.add(botonTirarFortaleza, BorderLayout.SOUTH);
+        panel_tiradaFortaleza.add(panel_tiradaFortaleza_aux, BorderLayout.WEST);
 
         // Reflejos
         panel_tiradaReflejos = new JPanel();
@@ -213,10 +258,18 @@ public class Menu extends JFrame {
         textAreaReflejo = new JTextArea(5, 20);
         textAreaReflejo.setLineWrap(true);
         textAreaReflejo.setWrapStyleWord(true);
+        textFieldDificultadReflejos = new JTextField(10);
+        labelDificultadReflejos = new JLabel("Dificultad: ");
         botonTirarReflejo = new JButton("Tirar Reflejos");
+
+        JPanel panel_tiradaRflejo_aux = new JPanel();
+        panel_tiradaRflejo_aux.add(labelDificultadReflejos, BorderLayout.WEST);
+        panel_tiradaRflejo_aux.add(textFieldDificultadReflejos, BorderLayout.CENTER);
+
         panel_tiradaReflejos.add(label_tiradaReflejos, BorderLayout.NORTH);
         panel_tiradaReflejos.add(new JScrollPane(textAreaReflejo), BorderLayout.CENTER);
         panel_tiradaReflejos.add(botonTirarReflejo, BorderLayout.SOUTH);
+        panel_tiradaReflejos.add(panel_tiradaRflejo_aux, BorderLayout.WEST);
 
         // Voluntad
         panel_tiradaVoluntad = new JPanel();
@@ -225,24 +278,33 @@ public class Menu extends JFrame {
         textAreaVoluntad = new JTextArea(5, 20);
         textAreaVoluntad.setLineWrap(true);
         textAreaVoluntad.setWrapStyleWord(true);
+        textFieldDificultadVoluntad = new JTextField(10);
+        labelDificultadVoluntad = new JLabel("Dificultad: ");
         botonTirarVoluntad = new JButton("Tirar Voluntad");
+
+        JPanel panel_tiradaVoluntad_aux = new JPanel();
+        panel_tiradaVoluntad_aux.add(labelDificultadVoluntad, BorderLayout.WEST);
+        panel_tiradaVoluntad_aux.add(textFieldDificultadVoluntad, BorderLayout.CENTER);
+
         panel_tiradaVoluntad.add(label_tiradaVoluntad, BorderLayout.NORTH);
         panel_tiradaVoluntad.add(new JScrollPane(textAreaVoluntad), BorderLayout.CENTER);
         panel_tiradaVoluntad.add(botonTirarVoluntad, BorderLayout.SOUTH);
-
+        panel_tiradaVoluntad.add(panel_tiradaVoluntad_aux, BorderLayout.WEST);
         // Principal
         panel_principal = new JPanel();
-        panel_principal.setLayout(new BoxLayout(panel_principal, BoxLayout.Y_AXIS));
-        panel_principal.add(panel_titulo);
+        panel_principal.setLayout(new GridLayout(2, 4));
+
+
+
         panel_principal.add(panel_personajeJugador);
-        panel_principal.add(panel_personajeNoJugador);
         panel_principal.add(panel_iniciativa);
         panel_principal.add(panel_percepcion);
         panel_principal.add(panel_tasacion);
+        panel_principal.add(panel_personajeNoJugador);
         panel_principal.add(panel_tiradaFortaleza);
         panel_principal.add(panel_tiradaReflejos);
         panel_principal.add(panel_tiradaVoluntad);
-
+        add(panel_titulo, BorderLayout.NORTH);
         add(panel_principal, BorderLayout.CENTER);
         setVisible(true);
 
@@ -261,12 +323,104 @@ public class Menu extends JFrame {
                 percepcion = Integer.parseInt(textField_personajeJugador4.getText());
                 tasacion = Integer.parseInt(textField_personajeJugador5.getText());
 
-                PersonajeJugador nuevoPJ = new PersonajeJugador(nombre_personaje,iniciativa,percepcion,nombre_jugador,tasacion);
+                PersonajeJugador nuevoPJ = new PersonajeJugador(nombre_personaje, iniciativa, percepcion, nombre_jugador, tasacion);
+                personajesJugadores.add(nuevoPJ);
+            }
+        });
 
+        button_agregarPersonajeNoJugador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombre_personaje;
+                int numero_npc;
+                int iniciativa;
+                int percepcion;
+                int mod_fortaleza;
+                int mod_reflejo;
+                int mod_voluntad;
+
+                nombre_personaje = textField_personajeNoJugador1.getText();
+                numero_npc = Integer.parseInt(textField_personajeNoJugador2.getText());
+                iniciativa = Integer.parseInt(textField_personajeNoJugador3.getText());
+                percepcion = Integer.parseInt(textField_personajeNoJugador4.getText());
+                mod_fortaleza = Integer.parseInt(textField_personajeNoJugador5.getText());
+                mod_reflejo = Integer.parseInt(textField_personajeNoJugador6.getText());
+                mod_voluntad = Integer.parseInt(textField_personajeNoJugador7.getText());
+
+                PersonajeNoJugador nuevoPNJ = new PersonajeNoJugador(nombre_personaje, numero_npc, iniciativa, percepcion, mod_fortaleza, mod_reflejo, mod_voluntad);
+                personajesNoJugadores.add(nuevoPNJ);
             }
         });
 
 
-    }
+        botonTirarIniciativa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Personaje> lista_combate = new ArrayList<>();
+                lista_combate.addAll(personajesJugadores);
+                lista_combate.addAll(personajesNoJugadores);
+                funciones.lanzar_iniciativa(lista_combate);
+                ArrayList<Personaje> lista_combate_ordenada = funciones.ordenar_iniciativa(lista_combate);
 
+
+                StringBuilder text = new StringBuilder();
+                for (Personaje item : lista_combate_ordenada) {
+                    text.append(item.getNombre_personaje())
+                            .append(" ")
+                            .append(item.getIniciativa_actual())
+                            .append("\n");
+                }
+                textArea_iniciativa.setText(text.toString());
+            }
+        });
+
+        botonTirarPercepcion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder text = new StringBuilder();
+                int dificultad = Integer.parseInt(textFieldDificultadPercepcion.getText());
+                text = funciones.tirar_percepcion_gui(personajesJugadores, dificultad);
+                textAreaPercepcion.setText(text.toString());
+            }
+        });
+
+        botonTirarTasacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder text = new StringBuilder();
+                int dificultad = Integer.parseInt(textFieldDificultadTasacion.getText());
+                text = funciones.tirar_tasacion_gui(personajesJugadores, dificultad);
+                textAreaTasacion.setText(text.toString());
+            }
+        });
+
+        botonTirarFortaleza.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder text = new StringBuilder();
+                int dificultad = Integer.parseInt(textFieldDificultadFortaleza.getText());
+                text = funciones.tirar_fortaleza_gui(personajesNoJugadores, dificultad);
+                textAreaFortaleza.setText(text.toString());
+            }
+        });
+        botonTirarReflejo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder text = new StringBuilder();
+                int dificultad = Integer.parseInt(textFieldDificultadReflejos.getText());
+                text = funciones.tirar_reflejos_gui(personajesNoJugadores, dificultad);
+                textAreaReflejo.setText(text.toString());
+            }
+        });
+
+        botonTirarVoluntad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder text = new StringBuilder();
+                int dificultad = Integer.parseInt(textFieldDificultadVoluntad.getText());
+                text = funciones.tirar_voluntad_gui(personajesNoJugadores, dificultad);
+                textAreaVoluntad.setText(text.toString());
+            }
+        });
+   }
 }
