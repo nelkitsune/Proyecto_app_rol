@@ -316,21 +316,37 @@ public class Menu extends JFrame {
                 int iniciativa;
                 int percepcion;
                 int tasacion;
+                try {
+                    if (textField_personajeJugador1.getText().trim().isEmpty() ||
+                            textField_personajeJugador2.getText().trim().isEmpty() ||
+                            textField_personajeJugador3.getText().trim().isEmpty() ||
+                            textField_personajeJugador4.getText().trim().isEmpty() ||
+                            textField_personajeJugador5.getText().trim().isEmpty()) {
+                        throw new IllegalArgumentException("Todos los campos deben estar llenos.");
+                    }
 
-                nombre_personaje = textField_personajeJugador1.getText();
-                nombre_jugador = textField_personajeJugador2.getText();
-                iniciativa = Integer.parseInt(textField_personajeJugador3.getText());
-                percepcion = Integer.parseInt(textField_personajeJugador4.getText());
-                tasacion = Integer.parseInt(textField_personajeJugador5.getText());
+                    nombre_personaje = textField_personajeJugador1.getText();
+                    nombre_jugador = textField_personajeJugador2.getText();
+                    iniciativa = Integer.parseInt(textField_personajeJugador3.getText());
+                    percepcion = Integer.parseInt(textField_personajeJugador4.getText());
+                    tasacion = Integer.parseInt(textField_personajeJugador5.getText());
+                    textField_personajeJugador1.setText("");
+                    textField_personajeJugador2.setText("");
+                    textField_personajeJugador3.setText("");
+                    textField_personajeJugador4.setText("");
+                    textField_personajeJugador5.setText("");
 
-                textField_personajeJugador1.setText("");
-                textField_personajeJugador2.setText("");
-                textField_personajeJugador3.setText("");
-                textField_personajeJugador4.setText("");
-                textField_personajeJugador5.setText("");
+                    PersonajeJugador nuevoPJ = new PersonajeJugador(nombre_personaje, iniciativa, percepcion, nombre_jugador, tasacion);
+                    personajesJugadores.add(nuevoPJ);;
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un Numero en los campos de iniciativa, percepción y tasación", "Error", JOptionPane.ERROR_MESSAGE);
 
-                PersonajeJugador nuevoPJ = new PersonajeJugador(nombre_personaje, iniciativa, percepcion, nombre_jugador, tasacion);
-                personajesJugadores.add(nuevoPJ);
+                }catch (IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, "Error desconocido", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -344,25 +360,42 @@ public class Menu extends JFrame {
                 int mod_fortaleza;
                 int mod_reflejo;
                 int mod_voluntad;
+                try {
+                    if (textField_personajeNoJugador1.getText().trim().isEmpty() ||
+                            textField_personajeNoJugador2.getText().trim().isEmpty() ||
+                            textField_personajeNoJugador3.getText().trim().isEmpty() ||
+                            textField_personajeNoJugador4.getText().trim().isEmpty() ||
+                            textField_personajeNoJugador5.getText().trim().isEmpty() ||
+                            textField_personajeNoJugador6.getText().trim().isEmpty() ||
+                            textField_personajeNoJugador7.getText().trim().isEmpty()) {
+                        throw new IllegalArgumentException("Todos los campos deben estar llenos.");
+                    }
+                    nombre_personaje = textField_personajeNoJugador1.getText();
+                    numero_npc = Integer.parseInt(textField_personajeNoJugador2.getText());
+                    iniciativa = Integer.parseInt(textField_personajeNoJugador3.getText());
+                    percepcion = Integer.parseInt(textField_personajeNoJugador4.getText());
+                    mod_fortaleza = Integer.parseInt(textField_personajeNoJugador5.getText());
+                    mod_reflejo = Integer.parseInt(textField_personajeNoJugador6.getText());
+                    mod_voluntad = Integer.parseInt(textField_personajeNoJugador7.getText());
 
-                nombre_personaje = textField_personajeNoJugador1.getText();
-                numero_npc = Integer.parseInt(textField_personajeNoJugador2.getText());
-                iniciativa = Integer.parseInt(textField_personajeNoJugador3.getText());
-                percepcion = Integer.parseInt(textField_personajeNoJugador4.getText());
-                mod_fortaleza = Integer.parseInt(textField_personajeNoJugador5.getText());
-                mod_reflejo = Integer.parseInt(textField_personajeNoJugador6.getText());
-                mod_voluntad = Integer.parseInt(textField_personajeNoJugador7.getText());
+                    textField_personajeNoJugador1.setText("");
+                    textField_personajeNoJugador2.setText("");
+                    textField_personajeNoJugador3.setText("");
+                    textField_personajeNoJugador4.setText("");
+                    textField_personajeNoJugador5.setText("");
+                    textField_personajeNoJugador6.setText("");
+                    textField_personajeNoJugador7.setText("");
 
-                textField_personajeNoJugador1.setText("");
-                textField_personajeNoJugador2.setText("");
-                textField_personajeNoJugador3.setText("");
-                textField_personajeNoJugador4.setText("");
-                textField_personajeNoJugador5.setText("");
-                textField_personajeNoJugador6.setText("");
-                textField_personajeNoJugador7.setText("");
+                    PersonajeNoJugador nuevoPNJ = new PersonajeNoJugador(nombre_personaje, numero_npc, iniciativa, percepcion, mod_fortaleza, mod_reflejo, mod_voluntad);
+                    personajesNoJugadores.add(nuevoPNJ);
 
-                PersonajeNoJugador nuevoPNJ = new PersonajeNoJugador(nombre_personaje, numero_npc, iniciativa, percepcion, mod_fortaleza, mod_reflejo, mod_voluntad);
-                personajesNoJugadores.add(nuevoPNJ);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un Numero en los campos de iniciativa, percepción, fortaleza, reflejo y voluntad", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error desconocido", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -391,49 +424,95 @@ public class Menu extends JFrame {
         botonTirarPercepcion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder text = new StringBuilder();
-                int dificultad = Integer.parseInt(textFieldDificultadPercepcion.getText());
-                text = funciones.tirar_percepcion_gui(personajesJugadores, dificultad);
-                textAreaPercepcion.setText(text.toString());
+                try {
+                    if (textFieldDificultadPercepcion.getText().trim().isEmpty()) {
+                        throw new IllegalArgumentException("La dificultad no puede estar vacía");
+                    }
+                    StringBuilder text = new StringBuilder();
+                    int dificultad = Integer.parseInt(textFieldDificultadPercepcion.getText());
+                    text = funciones.tirar_percepcion_gui(personajesJugadores, dificultad);
+                    textAreaPercepcion.setText(text.toString());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un Numero en el campo de dificultad", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         botonTirarTasacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder text = new StringBuilder();
-                int dificultad = Integer.parseInt(textFieldDificultadTasacion.getText());
-                text = funciones.tirar_tasacion_gui(personajesJugadores, dificultad);
-                textAreaTasacion.setText(text.toString());
+                try {
+                    if (textFieldDificultadTasacion.getText().trim().isEmpty()) {
+                        throw new IllegalArgumentException("La dificultad no puede estar vacía");
+                    }
+                    StringBuilder text = new StringBuilder();
+                    int dificultad = Integer.parseInt(textFieldDificultadTasacion.getText());
+                    text = funciones.tirar_tasacion_gui(personajesJugadores, dificultad);
+                    textAreaTasacion.setText(text.toString());
+                }catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un Numero en el campo de dificultad", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
 
         botonTirarFortaleza.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder text = new StringBuilder();
-                int dificultad = Integer.parseInt(textFieldDificultadFortaleza.getText());
-                text = funciones.tirar_fortaleza_gui(personajesNoJugadores, dificultad);
-                textAreaFortaleza.setText(text.toString());
+                try {
+                    if (textFieldDificultadFortaleza.getText().trim().isEmpty()) {
+                        throw new IllegalArgumentException("La dificultad no puede estar vacía");
+                    }
+                    StringBuilder text = new StringBuilder();
+                    int dificultad = Integer.parseInt(textFieldDificultadFortaleza.getText());
+                    text = funciones.tirar_fortaleza_gui(personajesNoJugadores, dificultad);
+                    textAreaFortaleza.setText(text.toString());
+                }catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un Numero en el campo de dificultad", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         botonTirarReflejo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder text = new StringBuilder();
-                int dificultad = Integer.parseInt(textFieldDificultadReflejos.getText());
-                text = funciones.tirar_reflejos_gui(personajesNoJugadores, dificultad);
-                textAreaReflejo.setText(text.toString());
+                try {
+                    if (textFieldDificultadReflejos.getText().trim().isEmpty()) {
+                        throw new IllegalArgumentException("La dificultad no puede estar vacía");
+                    }
+                    StringBuilder text = new StringBuilder();
+                    int dificultad = Integer.parseInt(textFieldDificultadReflejos.getText());
+                    text = funciones.tirar_reflejos_gui(personajesNoJugadores, dificultad);
+                    textAreaReflejo.setText(text.toString());
+                }catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un Numero en el campo de dificultad", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         botonTirarVoluntad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder text = new StringBuilder();
-                int dificultad = Integer.parseInt(textFieldDificultadVoluntad.getText());
-                text = funciones.tirar_voluntad_gui(personajesNoJugadores, dificultad);
-                textAreaVoluntad.setText(text.toString());
+                try {
+                    if (textFieldDificultadVoluntad.getText().trim().isEmpty()) {
+                        throw new IllegalArgumentException("La dificultad no puede estar vacía");
+                    }
+                    StringBuilder text = new StringBuilder();
+                    int dificultad = Integer.parseInt(textFieldDificultadVoluntad.getText());
+                    text = funciones.tirar_voluntad_gui(personajesNoJugadores, dificultad);
+                    textAreaVoluntad.setText(text.toString());
+                }catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un Numero en el campo de dificultad", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
    }
