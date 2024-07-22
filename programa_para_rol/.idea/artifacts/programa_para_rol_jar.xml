@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="programa_para_rol:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/programa_para_rol_jar</output-path>
+    <root id="archive" name="programa_para_rol.jar">
+      <element id="module-output" name="programa_para_rol" />
+    </root>
+  </artifact>
+</component>
