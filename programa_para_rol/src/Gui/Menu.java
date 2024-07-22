@@ -323,6 +323,12 @@ public class Menu extends JFrame {
                 percepcion = Integer.parseInt(textField_personajeJugador4.getText());
                 tasacion = Integer.parseInt(textField_personajeJugador5.getText());
 
+                textField_personajeJugador1.setText("");
+                textField_personajeJugador2.setText("");
+                textField_personajeJugador3.setText("");
+                textField_personajeJugador4.setText("");
+                textField_personajeJugador5.setText("");
+
                 PersonajeJugador nuevoPJ = new PersonajeJugador(nombre_personaje, iniciativa, percepcion, nombre_jugador, tasacion);
                 personajesJugadores.add(nuevoPJ);
             }
@@ -346,6 +352,14 @@ public class Menu extends JFrame {
                 mod_fortaleza = Integer.parseInt(textField_personajeNoJugador5.getText());
                 mod_reflejo = Integer.parseInt(textField_personajeNoJugador6.getText());
                 mod_voluntad = Integer.parseInt(textField_personajeNoJugador7.getText());
+
+                textField_personajeNoJugador1.setText("");
+                textField_personajeNoJugador2.setText("");
+                textField_personajeNoJugador3.setText("");
+                textField_personajeNoJugador4.setText("");
+                textField_personajeNoJugador5.setText("");
+                textField_personajeNoJugador6.setText("");
+                textField_personajeNoJugador7.setText("");
 
                 PersonajeNoJugador nuevoPNJ = new PersonajeNoJugador(nombre_personaje, numero_npc, iniciativa, percepcion, mod_fortaleza, mod_reflejo, mod_voluntad);
                 personajesNoJugadores.add(nuevoPNJ);
